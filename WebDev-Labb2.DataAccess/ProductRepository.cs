@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using WebDev_Labb2.DataAccess.Entities;
 
 namespace WebDev_Labb2.DataAccess;
@@ -18,7 +19,7 @@ public class ProductRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task<Enumerable<Product>> GetAllProducts()
+    public async Task<DbSet<Product>> GetAllProducts()
     {
         return _context.Products;
     }
@@ -42,6 +43,17 @@ public class ProductRepository
             return;
         }
         updateProduct.Price = price;
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task RemoveProduct(int id)
+    {
+        var removeProduct = await _context.Products.FindAsync(id);
+        if (removeProduct is null)
+        {
+            return;
+        }
+        _context.Remove(removeProduct);
         await _context.SaveChangesAsync();
     }
 }
