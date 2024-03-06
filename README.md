@@ -61,9 +61,10 @@
 | Orders        | List<Order> | List of orders    |
 
 ### Order
-| Property Name |   Data type   | Description          |
-| ------------- | ------------- | -------------------- |
-| ID            | int           | ID of order          |
-| CustomerId    | int           | Customer who ordered |
-| DateOfOrder   | DateTime      | Time of order        |
-| Products      | List<Product> | List of products     |
+|  Property Name |   Data type   | Description          |
+| -------------- | ------------- | -------------------- |
+| ID             | int           | ID of order          |
+| CustomerId     | int           | Customer who ordered |
+| DateOfOrder    | DateTime      | Time of order        |
+| DateOfDelivery | DateTime      | Time of delivery     |
+| Products       | List<Product> | List of products     |
