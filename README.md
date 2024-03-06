@@ -57,6 +57,7 @@
 | Name          | string      | Name of customer  |
 | Adress        | string      | Adress of cutomer |
 | Email         | string      | Email  of cutomer |
+| Phone         | string      | Phone to cutomer  |
 | Orders        | List<Order> | List of orders    |
 
 ### Order
