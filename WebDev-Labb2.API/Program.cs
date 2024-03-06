@@ -19,14 +19,14 @@ var app = builder.Build();
 #region Product
 
 // "/products"	GET	NONE	Product[]	200, 404
-app.MapGet("/products", (ProductRepository repo) =>
+app.MapGet("/products", async (ProductRepository repo) =>
 {
-    return new List<Product>();
+    return await repo.GetAllProducts();
 });
 // "/products/{id}"	GET	int ID	Product	200, 404
-app.MapGet("/products/{id:int}", (ProductRepository repo, int id) =>
+app.MapGet("/products/{id:int}", async (ProductRepository repo, int id) =>
 {
-    var product = repo.Products.FirstOrDefault(p => p.ProductID == id);
+    var product = repo.GetProductById(id);
     if (product is null)
     {
         return Results.NotFound($"Product with ID {id} was not found");
@@ -34,15 +34,16 @@ app.MapGet("/products/{id:int}", (ProductRepository repo, int id) =>
     return Results.Ok(product);
 });
 // "/products/{Category}"	GET 	string Category 	Product	200, 404
-//app.MapGet("/products/{category}", (ProductRepository repo, string category) =>
-//{
-//    var productOfType = repo.Products.Where(p => p.Category.Equals(category));
-//    if (productOfType is null || productOfType.Count() <= 0)
-//    {
-//        return Results.NotFound($"No products found in category: {category}");
-//    }
-//    return Results.Ok(productOfType);
-//});
+app.MapGet("/products/{category}", async (ProductRepository repo, string category) =>
+{
+    var allProducts = await repo.GetAllProducts();
+    var productOfType = allProducts.Where(p => p.Category.Equals(category));
+    if (productOfType is null || productOfType.Count() <= 0)
+    {
+        return Results.NotFound($"No products found in category: {category}");
+    }
+    return Results.Ok(productOfType);
+});
 // "/products"	POST	Product	  NONE	 200, 400
 app.MapPost("/products", (ProductRepository repo, Product newProduct) => 
 {
