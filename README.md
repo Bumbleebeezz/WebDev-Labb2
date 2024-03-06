@@ -18,15 +18,15 @@
 ### Customers
 | Path                   | Method | Request             |  Response  | ResponseCodes |
 | ---------------------- | ------ | ------------------- | ---------- | ------------- |
-| "/cutomers"            | GET    | NONE                | Customer[] | 200, 404      |
-| "/cutomers/{id}"       | GET    | int ID              | Customer   | 200, 404      |
-| "/cutomers/{name}"     | GET    | string Name         | Customer   | 200, 404      |
+| "/customers"           | GET    | NONE                | Customer[] | 200, 404      |
+| "/customers/{id}"      | GET    | int ID              | Customer   | 200, 404      |
+| "/customers/{name}"    | GET    | string Name         | Customer   | 200, 404      |
 |                        |        |                     |            |               |
-| "/cutomers"            | POST   | Customer            | NONE       | 200, 400      |
+| "/customers"           | POST   | Customer            | NONE       | 200, 400      |
 |                        |        |                     |            |               |
-| "/cutomers/{id}"       | PATCH  | int ID, ???         | NONE       | 200, 400, 404 |
+| "/customers/{id}"      | PATCH  | int ID, ???         | NONE       | 200, 400, 404 |
 |                        |        |                     |            |               |
-| "/cutomers/{id}"       | DELETE | int ID              | NONE       | 200, 404      |
+| "/customers/{id}"      | DELETE | int ID              | NONE       | 200, 404      |
 
 ### Orders
 | Path                   | Method | Request             |  Response  | ResponseCodes |
