@@ -6,4 +6,5 @@ public interface ICustomerService<T> where T : class
     Task<T?> GetCustomerById(int id);
     Task<T?> GetCustomerByName(string name);
     Task AddCustomer(T newCustomer);
+    Task DeleteCustomer(int id);
 }
