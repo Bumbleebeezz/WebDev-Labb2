@@ -29,10 +29,9 @@ public class ProductRepository
         return await _context.Products.FindAsync(id);
     }
 
-    public async Task<Product?> GetProductByCategory(string category)
+    public async Task<Product?> GetProductByName(string name)
     {
-
-        return await _context.Products.FindAsync(category);
+        return await _context.Products.FindAsync(name);
     }
 
     public async Task UpdateProductPrice(int id, float price)

@@ -10,9 +10,9 @@ builder.Services.AddDbContext<HandmadeDbContext>(
         options.UseSqlServer(connectionString)
 );
 
-builder.Services.AddSingleton<CustomerRepository>();
-builder.Services.AddSingleton<OrderRepository>();
-builder.Services.AddSingleton<ProductRepository>();
+builder.Services.AddScoped<CustomerRepository>();
+builder.Services.AddScoped<OrderRepository>();
+builder.Services.AddScoped<ProductRepository>();
 
 var app = builder.Build();
 
@@ -30,6 +30,16 @@ app.MapGet("/products/{id:int}", async (ProductRepository repo, int id) =>
     if (product is null)
     {
         return Results.NotFound($"Product with ID {id} was not found");
+    }
+    return Results.Ok(product);
+});
+// "/products/{name}"	GET	 string Name	Product	200, 404
+app.MapGet("/products/{category}", async (ProductRepository repo, string name) =>
+{
+    var product = repo.GetProductByName(name);
+    if (product is null)
+    {
+        return Results.NotFound($"Product with name {name} was not found");
     }
     return Results.Ok(product);
 });
@@ -91,16 +101,16 @@ app.MapGet("/customers/{id:int}", async (CustomerRepository repo, int id) =>
     }
     return Results.Ok(customer);
 });
-// "/customers/{name}"	GET	 string Name	Customer	200, 404
-app.MapGet("/customers/{name}", async (CustomerRepository repo, string name) =>
+// "/customers/{email}"	GET	 string Email	Customer	200, 404
+app.MapGet("/customers/{email}", async (CustomerRepository repo, string email) =>
 {
     var allCustomers = await repo.GetAllCustomers();
-    var customerWithName = allCustomers.Where(c => c.Name.Equals(name));
-    if (customerWithName is null || customerWithName.Count() <= 0)
+    var customerWithEmail = allCustomers.Where(c => c.Email.Equals(email));
+    if (customerWithEmail is null || customerWithEmail.Count() <= 0)
     {
-        return Results.NotFound($"No customer found with name: {name}");
+        return Results.NotFound($"No customer found with email: {email}");
     }
-    return Results.Ok(customerWithName);
+    return Results.Ok(customerWithEmail);
 });
 // "/customers"	POST	Customer	NONE	200, 400
 app.MapPost("/customers", async (CustomerRepository repo, Customer newCustomer) =>
