@@ -45,6 +45,17 @@ public class ProductRepository
         await _context.SaveChangesAsync();
     }
 
+    public async Task UpdateProductStatus(int id)
+    {
+        var updateProduct = await _context.Products.FindAsync(id);
+        if (updateProduct is null)
+        {
+            return;
+        }
+        updateProduct.Discontinued = true;
+        await _context.SaveChangesAsync();
+    }
+
     public async Task RemoveProduct(int id)
     {
         var removeProduct = await _context.Products.FindAsync(id);

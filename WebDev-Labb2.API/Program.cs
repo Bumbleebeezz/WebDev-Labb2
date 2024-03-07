@@ -35,7 +35,7 @@ app.MapGet("/products/{id:int}", async (ProductRepository repo, int id) =>
     return Results.Ok(product);
 });
 // "/products/{name}"	GET	 string Name	Product	200, 404
-app.MapGet("/products/{category}", async (ProductRepository repo, string name) =>
+app.MapGet("/products/{name}", async (ProductRepository repo, string name) =>
 {
     var product = repo.GetProductByName(name);
     if (product is null)
@@ -44,7 +44,7 @@ app.MapGet("/products/{category}", async (ProductRepository repo, string name) =
     }
     return Results.Ok(product);
 });
-// "/products/{Category}"	GET 	string Category 	Product	200, 404
+// "/products/{Category}"	GET 	Product[] 	Product	200, 404
 app.MapGet("/products/{category}", async (ProductRepository repo, string category) =>
 {
     var allProducts = await repo.GetAllProducts();
@@ -75,6 +75,16 @@ app.MapPatch("/products/{id}", async (ProductRepository repo, int id, float newP
         return Results.BadRequest($"Product with id {id} was not found");
     }
     await repo.UpdateProductPrice(id, newPrice);
+    return Results.Ok("Product has been updated");
+});
+app.MapPatch("/products/{id}", async (ProductRepository repo, int id) =>
+{
+    var excistingProduct = await repo.GetProductById(id);
+    if (excistingProduct is null)
+    {
+        return Results.BadRequest($"Product with id {id} was not found");
+    }
+    await repo.UpdateProductStatus(id);
     return Results.Ok("Product has been updated");
 });
 // "/products/{id}"    DELETE  int ID	NONE	200, 404
