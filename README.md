@@ -25,7 +25,10 @@
 |                        |        |                     |            |               |
 | "/customers"           | POST   | Customer            | NONE       | 200, 400      |
 |                        |        |                     |            |               |
-| "/customers/{id}"      | PATCH  | int ID, ???         | NONE       | 200, 400, 404 |
+| "/customers/{id}"      | PATCH  | int ID, 
+                                    string LastName,
+                                    string Address,
+                                    string Phone        | NONE       | 200, 400, 404 |
 |                        |        |                     |            |               |
 | "/customers/{id}"      | DELETE | int ID              | NONE       | 200, 404      |
 
@@ -37,7 +40,8 @@
 |                        |        |                     |            |               |
 | "/orders"              | POST   | Order               | NONE       | 200, 400      |
 |                        |        |                     |            |               |
-| "/orders/{id}"         | PATCH  | int ID, ???         | NONE       | 200, 400, 404 |
+| "/orders/{id}"         | PATCH  | int ID, 
+                                    bool DateOfDelivery | NONE       | 200, 400, 404 |
 |                        |        |                     |            |               |
 | "/orders/{id}"         | DELETE | int ID              | NONE       | 200, 404      |
 
