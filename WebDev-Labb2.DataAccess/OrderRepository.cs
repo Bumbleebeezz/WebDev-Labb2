@@ -12,9 +12,24 @@ public class OrderRepository
         _context = context;
     }
 
-    public async Task AddOrder(OrderDTO newOrder)
+    public async Task AddOrder(int customerID, List<int> productsID)
     {
-
+        var customer = await _context.Customers.FindAsync(customerID);
+        var allProducts = _context.Products;
+        var newOrder = new Order();
+        foreach (var product in allProducts)
+        {
+            foreach (var id in productsID)
+            {
+                if (id == product.ProductID)
+                {
+                    newOrder.Products.Add(product);
+                }
+            }
+        }
+        newOrder.CustomerID = customerID;
+        newOrder.DateOfDelivery = DateTime.Now;
+        customer.Orders.Add(newOrder);
         await _context.Orders.AddAsync(newOrder);
         await _context.SaveChangesAsync();
     }
@@ -29,14 +44,14 @@ public class OrderRepository
         return await _context.Orders.FindAsync(id);
     }
 
-    public async Task UpdateOrderStatus(int id, DateTime dateOfDelivery)
+    public async Task UpdateOrderStatus(int id)
     {
         var updateOrder = await _context.Orders.FindAsync(id);
         if (updateOrder is null)
         {
             return;
         }
-        updateOrder.DateOfDelivery = dateOfDelivery;
+        updateOrder.DateOfDelivery = DateTime.Now;
         await _context.SaveChangesAsync();
     }
 

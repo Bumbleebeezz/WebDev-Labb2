@@ -165,20 +165,20 @@ app.MapGet("/orders/{id:int}", async (OrderRepository repo, int id) =>
     return Results.Ok(order);
 });
 // "/orders"	POST	Order	NONE	200, 400
-app.MapPost("/orders", async (OrderRepository repo, OrderDTO newOrder) =>
+app.MapPost("/orders", async (OrderRepository repo,int customerID, List<int> products) =>
 {
-    await repo.AddOrder(newOrder);
+    await repo.AddOrder(customerID, products);
     return Results.Ok("Order created");
 });
 // "/orders/{id}"	PATCH	int ID,bool DateOfDelivery	NONE	200, 400, 404
-app.MapPatch("/orders/{id}", async (OrderRepository repo, int id, DateTime dateOfDelivery) =>
+app.MapPatch("/orders/{id}", async (OrderRepository repo, int id) =>
 {
     var existingOrder = repo.GetOrderById(id);
     if (existingOrder is null)
     {
         return Results.BadRequest($"Order with id {id} does not excist");
     }
-    await repo.UpdateOrderStatus(id,dateOfDelivery);
+    await repo.UpdateOrderStatus(id);
     return Results.Ok("Order updated");
 });
 
