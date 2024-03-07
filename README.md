@@ -29,6 +29,7 @@
 | "/customers/{id}"      | PATCH  | int ID, 
                                     string LastName,
                                     string Address,
+                                    string Email,
                                     string Phone        | NONE       | 200, 400, 404 |
 |                        |        |                     |            |               |
 | "/customers/{id}"      | DELETE | int ID              | NONE       | 200, 404      |
