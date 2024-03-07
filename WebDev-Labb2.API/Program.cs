@@ -174,7 +174,17 @@ app.MapPost("/orders", async (OrderRepository repo, Order newOrder) =>
     await repo.AddOrder(newOrder);
     return Results.Ok("Order created");
 });
-// "/orders/{id}"	PATCH	int ID, ???	NONE	200, 400, 404
+// "/orders/{id}"	PATCH	int ID,bool DateOfDelivery	NONE	200, 400, 404
+app.MapPatch("/orders/{id}", async (OrderRepository repo, int id, DateTime dateOfDelivery) =>
+{
+    var existingOrder = repo.GetOrderById(id);
+    if (existingOrder is null)
+    {
+        return Results.BadRequest($"Order with id {id} does not excist");
+    }
+    await repo.UpdateOrderStatus(id,dateOfDelivery);
+    return Results.Ok("Order updated");
+});
 
 // "/orders/{id}"	DELETE	int ID	NONE	200, 404
 app.MapDelete("/orders/{id}", async (OrderRepository repo, int id) =>

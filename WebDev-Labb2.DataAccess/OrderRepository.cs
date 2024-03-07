@@ -28,6 +28,17 @@ public class OrderRepository
         return await _context.Orders.FindAsync(id);
     }
 
+    public async Task UpdateOrderStatus(int id, DateTime dateOfDelivery)
+    {
+        var updateOrder = await _context.Orders.FindAsync(id);
+        if (updateOrder is null)
+        {
+            return;
+        }
+        updateOrder.DateOfDelivery = dateOfDelivery;
+        await _context.SaveChangesAsync();
+    }
+
     public async Task RemoveOrder(int id)
     {
         var removeOrder = await _context.Orders.FindAsync(id);
