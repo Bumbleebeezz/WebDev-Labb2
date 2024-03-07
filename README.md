@@ -12,7 +12,10 @@
 |                        |        |                     |           |               |
 | "/products"            | POST   | Product             | NONE      | 200, 400      |
 |                        |        |                     |           |               |
-| "/products/{id}"       | PATCH  | int ID, float Price | NONE      | 200, 400, 404 |
+| "/products/{id}"       | PATCH  | 
+                                    int ID, 
+                                    float Price,
+                                    bool DateOfDelivery | NONE      | 200, 400, 404 |
 |                        |        |                     |           |               |
 | "/products/{id}"       | DELETE | int ID              | NONE      | 200, 404      |
 
