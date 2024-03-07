@@ -7,7 +7,7 @@
 | ---------------------- | ------ | ------------------- | --------- | ------------- |
 | "/products"            | GET    | NONE                | Product[] | 200, 404      |
 | "/products/{id}"       | GET    | int ID              | Product   | 200, 404      |
-| "/products/{naem}"     | GET    | string Name         | Product   | 200, 404      |
+| "/products/{name}"     | GET    | string Name         | Product   | 200, 404      |
 | "/products/{Category}" | GET    | string Category     | Product   | 200, 404      |
 |                        |        |                     |           |               |
 | "/products"            | POST   | Product             | NONE      | 200, 400      |
