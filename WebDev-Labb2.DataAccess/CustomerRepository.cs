@@ -36,7 +36,7 @@ public class CustomerRepository
         {
             return;
         }
-        updateCustomer.Name = newName;
+        updateCustomer.Firstname = newName;
         await _context.SaveChangesAsync();
     }
 
