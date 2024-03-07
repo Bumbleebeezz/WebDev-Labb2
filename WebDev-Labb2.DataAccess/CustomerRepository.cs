@@ -29,18 +29,17 @@ public class CustomerRepository
         return await _context.Customers.FindAsync(id);
     }
 
-    public async Task UpdateCustomerName(int id, string newName)
+    public async Task UpdateCustomerLastname(int id, string newLastname)
     {
         var updateCustomer = await _context.Customers.FindAsync(id);
         if (updateCustomer is null)
         {
             return;
         }
-        updateCustomer.Firstname = newName;
+        updateCustomer.Lastname = newLastname;
         await _context.SaveChangesAsync();
     }
-
-    public async Task UpdateCustomerAdress(int id, string newAdress)
+    public async Task UpdateCustomerAddress(int id, string newAdress)
     {
         var updateCustomer = await _context.Customers.FindAsync(id);
         if (updateCustomer is null)
@@ -48,6 +47,17 @@ public class CustomerRepository
             return;
         }
         updateCustomer.Address = newAdress;
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task UpdateCustomerEmail(int id, string newEmail)
+    {
+        var updateCustomer = await _context.Customers.FindAsync(id);
+        if (updateCustomer is null)
+        {
+            return;
+        }
+        updateCustomer.Email = newEmail;
         await _context.SaveChangesAsync();
     }
 

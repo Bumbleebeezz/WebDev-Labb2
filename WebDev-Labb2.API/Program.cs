@@ -124,7 +124,20 @@ app.MapPost("/customers", async (CustomerRepository repo, Customer newCustomer) 
     return Results.Ok("Customer created");
 });
 // "/customers/{id}"	PATCH	int ID, ???	NONE	200, 400, 404
+app.MapPatch("/customers/{id}", async (CustomerRepository repo, int id, string newLastname, string newAddress, string newEmail, string newPhone) =>
+{
+    var excistingCustomer = await repo.GetCustomerById(id);
+    if (excistingCustomer is not null)
+    {
+        return Results.BadRequest($"Customer with id {id} already excists");
+    }
 
+    await repo.UpdateCustomerLastname(id, newLastname);
+    await repo.UpdateCustomerAddress(id, newAddress);
+    await repo.UpdateCustomerEmail(id, newEmail);
+    await repo.UpdateCustomerPhone(id, newPhone);
+    return Results.Ok("Customer updated");
+});
 // "/customers/{id}"	DELETE	 int ID	 NONE	200, 404
 app.MapDelete("/customers/{id}", async (CustomerRepository repo, int id) =>
 {
