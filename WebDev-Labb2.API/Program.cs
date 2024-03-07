@@ -180,7 +180,7 @@ app.MapPost("/orders", async (OrderRepository repo,int customerID, List<int> pro
     await repo.AddOrder(customerID, products);
     return Results.Ok("Order created");
 });
-// "/orders/{id}"	PATCH	int ID,bool DateOfDelivery	NONE	200, 400, 404
+// "/orders/{id}"	PATCH	int ID	NONE	200, 400, 404
 app.MapPatch("/orders/{id}", async (OrderRepository repo, int id) =>
 {
     var existingOrder = repo.GetOrderById(id);
