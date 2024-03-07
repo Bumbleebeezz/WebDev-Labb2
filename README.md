@@ -23,7 +23,6 @@
 | Path                   | Method | Request             |  Response  | ResponseCodes |
 | ---------------------- | ------ | ------------------- | ---------- | ------------- |
 | "/customers"           | GET    | NONE                | Customer[] | 200, 404      |
-| "/customers/{id}"      | GET    | int ID              | Customer   | 200, 404      |
 | "/customers/{email}"   | GET    | string Email        | Customer   | 200, 404      |
 |                        |        |                     |            |               |
 | "/customers"           | POST   | Customer            | NONE       | 200, 400      |
