@@ -12,8 +12,9 @@ public class OrderRepository
         _context = context;
     }
 
-    public async Task AddOrder(Order newOrder)
+    public async Task AddOrder(OrderDTO newOrder)
     {
+
         await _context.Orders.AddAsync(newOrder);
         await _context.SaveChangesAsync();
     }

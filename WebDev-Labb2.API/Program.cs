@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using WebDev_Labb2.DataAccess;
 using WebDev_Labb2.DataAccess.Entities;
+using WebDev_Labb2.Shared.DTOs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -164,13 +165,8 @@ app.MapGet("/orders/{id:int}", async (OrderRepository repo, int id) =>
     return Results.Ok(order);
 });
 // "/orders"	POST	Order	NONE	200, 400
-app.MapPost("/orders", async (OrderRepository repo, Order newOrder) =>
+app.MapPost("/orders", async (OrderRepository repo, OrderDTO newOrder) =>
 {
-    var excistingOrder = await repo.GetOrderById(newOrder.OrderID);
-    if (excistingOrder is not null)
-    {
-        return Results.BadRequest($"Order with id {newOrder.OrderID} already excists");
-    }
     await repo.AddOrder(newOrder);
     return Results.Ok("Order created");
 });

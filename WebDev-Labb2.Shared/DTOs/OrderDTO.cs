@@ -7,8 +7,5 @@ public class OrderDTO
 {
     [Required]
     public int CustomerID { get; set; }
-    [Required]
-    public DateTime DateOfOrder { get; set; }
-    public DateTime DateOfDelivery { get; set; }
-    public List<Product> Products { get; set; }
+    public List<int> Products { get; set; }
 }
