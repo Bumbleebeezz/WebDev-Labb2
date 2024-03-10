@@ -22,7 +22,7 @@ public class OrderRepository
             newOrder.Products.Add(prod);
         }
         newOrder.CustomerID = customerID;
-        newOrder.DateOfDelivery = DateTime.Now;
+        newOrder.DateOfOrder = DateTime.Now;
         customer.Orders.Add(newOrder);
         await _context.Orders.AddAsync(newOrder);
         await _context.SaveChangesAsync();
