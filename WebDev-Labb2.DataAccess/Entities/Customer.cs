@@ -8,5 +8,5 @@ public class Customer
     public string Address { get; set; }
     public string Email { get; set; }
     public string Phone { get; set; }
-    public List<Order> Orders { get; set; }
+    public List<Order> Orders { get; set; } = new();
 }
