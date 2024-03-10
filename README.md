@@ -8,11 +8,13 @@
 | "/products"            | GET    | NONE                | Product[] | 200, 404      |
 | "/products/{id}"       | GET    | int ID              | Product   | 200, 404      |
 | "/products/{name}"     | GET    | string Name         | Product   | 200, 404      |
-| "/products/{Category}" | GET    | string Category     | Product[] | 200, 404      |
 |                        |        |                     |           |               |
 | "/products"            | POST   | Product             | NONE      | 200, 400      |
 |                        |        |                     |           |               |
-| "/products/{id}"       | PATCH  | int ID, float Price | NONE      | 200, 400, 404 |
+| "/products/{id}"       | PATCH  | 
+                                    int ID, 
+                                    float Price,
+                                    bool DateOfDelivery | NONE      | 200, 400, 404 |
 |                        |        |                     |           |               |
 | "/products/{id}"       | DELETE | int ID              | NONE      | 200, 404      |
 
@@ -20,7 +22,6 @@
 | Path                   | Method | Request             |  Response  | ResponseCodes |
 | ---------------------- | ------ | ------------------- | ---------- | ------------- |
 | "/customers"           | GET    | NONE                | Customer[] | 200, 404      |
-| "/customers/{id}"      | GET    | int ID              | Customer   | 200, 404      |
 | "/customers/{email}"   | GET    | string Email        | Customer   | 200, 404      |
 |                        |        |                     |            |               |
 | "/customers"           | POST   | Customer            | NONE       | 200, 400      |
@@ -28,6 +29,7 @@
 | "/customers/{id}"      | PATCH  | int ID, 
                                     string LastName,
                                     string Address,
+                                    string Email,
                                     string Phone        | NONE       | 200, 400, 404 |
 |                        |        |                     |            |               |
 | "/customers/{id}"      | DELETE | int ID              | NONE       | 200, 404      |
