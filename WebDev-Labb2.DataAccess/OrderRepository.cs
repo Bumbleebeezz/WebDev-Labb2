@@ -15,16 +15,16 @@ public class OrderRepository
     public async Task AddOrder(int customerID, List<int> productsID)
     {
         var customer = await _context.Customers.FindAsync(customerID);
-        var newOrder = new Order();
+        Order newOrder = new();
         foreach (var product in productsID)
         {
-            var prod = await _context.Products.FindAsync(product);
+            Product prod = await _context.Products.FindAsync(product);
             newOrder.Products.Add(prod);
         }
         newOrder.CustomerID = customerID;
         newOrder.DateOfOrder = DateTime.Now;
         customer.Orders.Add(newOrder);
-        await _context.Orders.AddAsync(newOrder);
+        _context.Orders.Add(newOrder);
         await _context.SaveChangesAsync();
     }
 
