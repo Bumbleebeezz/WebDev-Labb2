@@ -44,17 +44,6 @@ app.MapGet("/products/{name}", async (ProductRepository repo, string name) =>
     }
     return Results.Ok(product);
 });
-// "/products/{Category}"	GET 	Product[] 	Product	200, 404
-app.MapGet("/products/{category}", async (ProductRepository repo, string category) =>
-{
-    var allProducts = await repo.GetAllProducts();
-    var productOfType = allProducts.Where(p => p.Category.Equals(category));
-    if (productOfType is null || productOfType.Count() <= 0)
-    {
-        return Results.NotFound($"No products found in category: {category}");
-    }
-    return Results.Ok(productOfType);
-});
 // "/products"	POST	Product	  NONE	 200, 400
 app.MapPost("/products", async (ProductRepository repo, Product newProduct) =>
 {
@@ -101,16 +90,6 @@ app.MapDelete("/products/{id}", async (ProductRepository repo, int id) =>
 app.MapGet("/customers", async (CustomerRepository repo) =>
 {
     return await repo.GetAllCustomers();
-});
-// "/customers/{id}"	GET 	int ID	Customer	200, 404
-app.MapGet("/customers/{id:int}", async (CustomerRepository repo, int id) =>
-{
-    var customer = repo.GetCustomerById(id);
-    if (customer is null)
-    {
-        return Results.NotFound($"Customer with ID {id} was not found");
-    }
-    return Results.Ok(customer);
 });
 // "/customers/{email}"	GET	 string Email	Customer	200, 404
 app.MapGet("/customers/{email}", async (CustomerRepository repo, string email) =>
@@ -167,7 +146,7 @@ app.MapGet("/orders", async (OrderRepository repo) =>
 // "/orders/{orderID}"	GET	 int ID 	Order	200, 404
 app.MapGet("/orders/{id:int}", async (OrderRepository repo, int id) =>
 {
-    var order = repo.GetOrderById(id);
+    var order = await repo.GetOrderById(id);
     if (order is null)
     {
         return Results.NotFound($"Order with ID {id} was not found");
@@ -175,15 +154,15 @@ app.MapGet("/orders/{id:int}", async (OrderRepository repo, int id) =>
     return Results.Ok(order);
 });
 // "/orders"	POST	Order	NONE	200, 400
-app.MapPost("/orders", async (OrderRepository repo,int customerID, List<int> products) =>
+app.MapPost("/orders", async (OrderRepository repo,OrderDTO dto) =>
 {
-    await repo.AddOrder(customerID, products);
+    await repo.AddOrder(dto.CustomerID, dto.Products);
     return Results.Ok("Order created");
 });
 // "/orders/{id}"	PATCH	int ID	NONE	200, 400, 404
 app.MapPatch("/orders/{id}", async (OrderRepository repo, int id) =>
 {
-    var existingOrder = repo.GetOrderById(id);
+    var existingOrder = await repo.GetOrderById(id);
     if (existingOrder is null)
     {
         return Results.BadRequest($"Order with id {id} does not excist");
