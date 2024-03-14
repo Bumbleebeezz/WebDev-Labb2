@@ -23,9 +23,10 @@ public static class OrderEndpointExtensions
         return app;
     }
 
-    private static async Task RemoveOrder(OrderRepository repo, int id)
+    private static async Task<IResult> RemoveOrder(OrderRepository repo, int id)
     {
         await repo.RemoveOrder(id);
+        return Results.Ok("Order removed");
     }
 
     private static async Task<IResult> ReplaceOrder(OrderRepository repo, int id)

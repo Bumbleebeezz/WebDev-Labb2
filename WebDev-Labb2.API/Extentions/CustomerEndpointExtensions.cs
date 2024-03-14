@@ -38,7 +38,7 @@ public static class CustomerEndpointExtensions
         app.MapPatch("/customers/{id}", async (CustomerRepository repo, int id, string newLastname, string newAddress, string newEmail, string newPhone) =>
         {
             var excistingCustomer = await repo.GetCustomerById(id);
-            if (excistingCustomer is not null)
+            if (excistingCustomer is null)
             {
                 return Results.BadRequest($"Customer with id {id} already excists");
             }
