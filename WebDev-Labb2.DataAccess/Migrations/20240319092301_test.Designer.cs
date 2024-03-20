@@ -12,8 +12,8 @@ using WebDev_Labb2.DataAccess;
 namespace WebDev_Labb2.DataAccess.Migrations
 {
     [DbContext(typeof(HandmadeDbContext))]
-    [Migration("20240307090548_usch")]
-    partial class usch
+    [Migration("20240319092301_test")]
+    partial class test
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -69,7 +69,7 @@ namespace WebDev_Labb2.DataAccess.Migrations
                     b.Property<int>("CustomerID")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DateOfDelivery")
+                    b.Property<DateTime?>("DateOfDelivery")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateOfOrder")

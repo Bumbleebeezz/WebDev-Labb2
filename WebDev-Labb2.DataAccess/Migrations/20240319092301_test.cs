@@ -17,7 +17,8 @@ namespace WebDev_Labb2.DataAccess.Migrations
                 {
                     CustomerID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Firstname = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Lastname = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: false)
@@ -35,7 +36,7 @@ namespace WebDev_Labb2.DataAccess.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CustomerID = table.Column<int>(type: "int", nullable: false),
                     DateOfOrder = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DateOfDelivery = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    DateOfDelivery = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -58,6 +59,7 @@ namespace WebDev_Labb2.DataAccess.Migrations
                     Price = table.Column<float>(type: "real", nullable: false),
                     Category = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Discontinued = table.Column<bool>(type: "bit", nullable: false),
                     OrderID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
