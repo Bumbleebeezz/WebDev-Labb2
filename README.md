@@ -7,14 +7,10 @@
 | ---------------------- | ------ | ------------------- | --------- | ------------- |
 | "/products"            | GET    | NONE                | Product[] | 200, 404      |
 | "/products/{id}"       | GET    | int ID              | Product   | 200, 404      |
-| "/products/{name}"     | GET    | string Name         | Product   | 200, 404      |
 |                        |        |                     |           |               |
 | "/products"            | POST   | Product             | NONE      | 200, 400      |
 |                        |        |                     |           |               |
-| "/products/{id}"       | PATCH  | 
-                                    int ID, 
-                                    float Price,
-                                    bool DateOfDelivery | NONE      | 200, 400, 404 |
+| "/products/{id}"       | PATCH  | int ID              | NONE      | 200, 400, 404 |
 |                        |        |                     |           |               |
 | "/products/{id}"       | DELETE | int ID              | NONE      | 200, 404      |
 
@@ -30,7 +26,8 @@
                                     string LastName,
                                     string Address,
                                     string Email,
-                                    string Phone        | NONE       | 200, 400, 404 |
+                                    string Phone        
+                                                        | NONE       | 200, 400, 404 |
 |                        |        |                     |            |               |
 | "/customers/{id}"      | DELETE | int ID              | NONE       | 200, 404      |
 
