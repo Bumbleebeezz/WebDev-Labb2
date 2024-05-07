@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using WebDev_Labb2.DataAccess.Entities;
 
-namespace WebDev_Labb2.DataAccess;
+namespace WebDev_Labb2.DataAccess.Repositories;
 
 public class ProductRepository
 {

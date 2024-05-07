@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WebDev_Labb2.DataAccess;
 using WebDev_Labb2.DataAccess.Entities;
+using WebDev_Labb2.DataAccess.Repositories;
 using WebDev_Labb2.Shared.DTOs;
 
 namespace WebDev_Labb2.API.Extentions;

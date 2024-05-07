@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using WebDev_Labb2.API.Extentions;
 using WebDev_Labb2.DataAccess;
 using WebDev_Labb2.DataAccess.Entities;
+using WebDev_Labb2.DataAccess.Repositories;
 using WebDev_Labb2.Shared.DTOs;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,7 @@ builder.Services.AddScoped<ProductRepository>();
 
 var app = builder.Build();
 
+app.MapGet("/", () => "API is running!");
 app.MapOrderEndpoints();
 app.MapProductEndpoints();
 app.MapCustomerEndpoints();

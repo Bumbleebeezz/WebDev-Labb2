@@ -1,5 +1,5 @@
 ﻿using WebDev_Labb2.DataAccess.Entities;
-using WebDev_Labb2.DataAccess;
+using WebDev_Labb2.DataAccess.Repositories;
 
 namespace WebDev_Labb2.API.Extentions;
 

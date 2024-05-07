@@ -6,5 +6,5 @@ public class Order
     public int CustomerID { get; set; }
     public DateTime DateOfOrder { get; set; }
     public DateTime? DateOfDelivery { get; set; }
-    public List<Product> Products { get; set; } = new();
+    public virtual ICollection<Product> Products { get; set; }
 }
