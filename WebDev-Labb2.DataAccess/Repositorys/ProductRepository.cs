@@ -17,14 +17,14 @@ public class ProductRepository(HandmadeDbContext context)
         return context.Products;
     }
 
+    public async Task<Product?> GetProductByEAN(int ean)
+    {
+        return await context.Products.FindAsync(ean);
+    }
+
     public async Task<Product?> GetProductById(int id)
     {
         return await context.Products.FindAsync(id);
-    }
-
-    public async Task<Product?> GetProductByName(string name)
-    {
-        return await context.Products.FindAsync(name);
     }
 
     public async Task UpdateProductPrice(int id, float price)

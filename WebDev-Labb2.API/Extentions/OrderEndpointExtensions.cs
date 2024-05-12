@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebDev_Labb2.DataAccess.Entities;
-using WebDev_Labb2.DataAccess.Repositories;
+using WebDev_Labb2.DataAccess.Repositorys;
 using WebDev_Labb2.Shared.DTOs;
 
 namespace WebDev_Labb2.API.Extentions;
@@ -9,16 +9,18 @@ public static class OrderEndpointExtensions
 {
     public static WebApplication MapOrderEndpoints(this WebApplication app)
     {
+        var group = app.MapGroup("api/orders");
+
         // "/orders"	GET	NONE	Order[]	 200, 404
-        app.MapGet("/orders", GetAllOrders);
+        group.MapGet("/", GetAllOrders);
         // "/orders/{orderID}"	GET	 int ID 	Order	200, 404
-        app.MapGet("/orders/{id:int}", GetAllOrdersById);
+        group.MapGet("/{id}", GetAllOrdersById);
         // "/orders"	POST	Order	NONE	200, 400
-        app.MapPost("/orders", AddOrder);
+        group.MapPost("/", AddOrder);
         // "/orders/{id}"	PATCH	int ID	NONE	200, 400, 404
-        app.MapPatch("/orders/{id}", ReplaceOrder);
+        group.MapPatch("/{id}", ReplaceOrder);
         // "/orders/{id}"	DELETE	int ID	NONE	200, 404
-        app.MapDelete("/orders/{id}", RemoveOrder);
+        group.MapDelete("/{id}", RemoveOrder);
 
         return app;
     }

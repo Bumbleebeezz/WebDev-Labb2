@@ -27,6 +27,11 @@ public class CustomerServices : ICustomerService<CustomerDTO>
         throw new NotImplementedException();
     }
 
+    public Task<CustomerDTO?> GetCustomerByEmail(string name)
+    {
+        throw new NotImplementedException();
+    }
+
     public Task AddCustomer(CustomerDTO newCustomer)
     {
         throw new NotImplementedException();
