@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using WebDev_Labb2.DataAccess.Entities;
 
-namespace WebDev_Labb2.DataAccess.Repositories;
+namespace WebDev_Labb2.DataAccess.Repositorys;
 
 public class CustomerRepository(HandmadeDbContext context)
 {
