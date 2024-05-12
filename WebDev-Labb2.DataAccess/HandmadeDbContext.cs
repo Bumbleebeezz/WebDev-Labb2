@@ -6,9 +6,9 @@ namespace WebDev_Labb2.DataAccess;
 
 public class HandmadeDbContext :DbContext 
 {
-    public DbSet<Product> Products { get; set; } 
-    public DbSet<Customer> Customers { get; set; } 
-    public DbSet<Order> Orders { get; set; }
+    public DbSet<Product> Products { get; set; } = null!;
+    public DbSet<Customer> Customers { get; set; } = null!;
+    public DbSet<Order> Orders { get; set; } = null!;
 
     public HandmadeDbContext() { }
     public HandmadeDbContext(DbContextOptions<HandmadeDbContext> options) : base(options) { }

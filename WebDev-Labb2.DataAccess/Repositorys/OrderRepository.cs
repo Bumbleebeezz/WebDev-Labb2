@@ -8,6 +8,10 @@ public class OrderRepository(HandmadeDbContext context)
     public async Task AddOrder(int customerID, List<int> productsID)
     {
         var customer = await context.Customers.FindAsync(customerID);
+        if (customer is null)
+        {
+            Console.WriteLine();
+        }
         Order newOrder = new();
         foreach (var product in productsID)
         {
@@ -28,7 +32,13 @@ public class OrderRepository(HandmadeDbContext context)
 
     public async Task<Order?> GetOrderById(int id)
     {
-        return await context.Orders.FindAsync(id);
+        var orderById = await context.Orders.FindAsync(id);
+        if (orderById is null)
+        {
+            Console.WriteLine($"Order with id: {id} was not found");
+            return null;
+        }
+        return orderById;
     }
 
     public async Task UpdateOrderStatus(int id)
@@ -36,6 +46,7 @@ public class OrderRepository(HandmadeDbContext context)
         var updateOrder = await context.Orders.FindAsync(id);
         if (updateOrder is null)
         {
+            Console.WriteLine($"Order with id: {id} was not found");
             return;
         }
         updateOrder.DateOfDelivery = DateTime.Now;
@@ -47,6 +58,7 @@ public class OrderRepository(HandmadeDbContext context)
         var removeOrder = await context.Orders.FindAsync(id);
         if (removeOrder is null)
         {
+            Console.WriteLine($"Order with id: {id} was not found");
             return;
         }
         context.Remove(removeOrder);

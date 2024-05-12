@@ -19,7 +19,13 @@ public class CustomerRepository(HandmadeDbContext context)
 
     public async Task<Customer?> GetCustomerById(int id)
     {
-        return await context.Customers.FindAsync(id);
+        var customer = await context.Customers.FindAsync(id);
+        if (customer == null)
+        {
+            Console.WriteLine($"Customer with id: {id} was not found");
+            return null;
+        }
+        return customer;
     }
 
     public async Task UpdateCustomerLastname(int id, string newLastname)

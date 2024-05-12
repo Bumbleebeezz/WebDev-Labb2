@@ -17,7 +17,7 @@ public class OrderServices : IOrderService<OrderDTO>
         throw new NotImplementedException();
     }
 
-    public Task<OrderDTO?> GetOrderById(int id)
+    public async Task<OrderDTO?> GetOrderById(int id)
     {
         throw new NotImplementedException();
     }

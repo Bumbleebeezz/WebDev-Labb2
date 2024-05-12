@@ -1,7 +1,10 @@
-﻿namespace WebDev_Labb2.DataAccess.Entities;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace WebDev_Labb2.DataAccess.Entities;
 
 public class Product
 {
+    [Key]
     public int ProductID { get; set; }
     public string Name { get; set; }
     public float Price { get; set; }
