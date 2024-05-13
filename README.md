@@ -6,7 +6,7 @@
 | Path                   | Method | Request             | Response  | ResponseCodes |
 | ---------------------- | ------ | ------------------- | --------- | ------------- |
 | "/products"            | GET    | NONE                | Product[] | 200, 404      |
-| "/products/{id}"       | GET    | int ID              | Product   | 200, 404      |
+| "/products/{ean}"      | GET    | int ean             | Product   | 200, 404      |
 |                        |        |                     |           |               |
 | "/products"            | POST   | Product             | NONE      | 200, 400      |
 |                        |        |                     |           |               |
