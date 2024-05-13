@@ -27,17 +27,6 @@ public class ProductRepository(HandmadeDbContext context)
         return await context.Products.FindAsync(id);
     }
 
-    public async Task UpdateProductPrice(int id, float price)
-    {
-        var updateProduct = await context.Products.FindAsync(id);
-        if (updateProduct is null)
-        {
-            return;
-        }
-        updateProduct.Price = price;
-        await context.SaveChangesAsync();
-    }
-
     public async Task UpdateProductStatus(int id)
     {
         var updateProduct = await context.Products.FindAsync(id);

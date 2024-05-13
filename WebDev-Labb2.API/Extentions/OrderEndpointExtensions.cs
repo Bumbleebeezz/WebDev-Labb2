@@ -25,10 +25,30 @@ public static class OrderEndpointExtensions
         return app;
     }
 
-    private static async Task<IResult> RemoveOrder(OrderRepository repo, int id)
+    private static async Task<IResult> GetAllOrders(OrderRepository repo)
     {
-        await repo.RemoveOrder(id);
-        return Results.Ok("Order removed");
+        var allOrders = await repo.GetAllOrders();
+        if (allOrders == null)
+        {
+            return Results.BadRequest("No orders found");
+        }
+        return Results.Ok(allOrders);
+    }
+
+    private static async Task<IResult> GetAllOrdersById(OrderRepository repo, int id)
+    {
+        var order = await repo.GetOrderById(id);
+        if (order is null)
+        {
+            return Results.NotFound($"Order with ID {id} was not found");
+        }
+
+        return Results.Ok(order);
+    }
+
+    private static void AddOrder(OrderRepository repo, OrderDTO dto)
+    {
+        repo.AddOrder(dto.CustomerID, dto.Products);
     }
 
     private static async Task<IResult> ReplaceOrder(OrderRepository repo, int id)
@@ -43,24 +63,9 @@ public static class OrderEndpointExtensions
         return Results.Ok("Order updated");
     }
 
-    private static async Task<IResult> GetAllOrdersById(OrderRepository repo, int id)
+    private static async Task<IResult> RemoveOrder(OrderRepository repo, int id)
     {
-        var order = await repo.GetOrderById(id);
-        if (order is null)
-        {
-            return Results.NotFound($"Order with ID {id} was not found");
-        }
-
-        return Results.Ok(order);
-    }
-
-    private static async Task<DbSet<Order>> GetAllOrders(OrderRepository repo)
-    {
-        return await repo.GetAllOrders();
-    }
-
-    private static void AddOrder(OrderRepository repo, OrderDTO dto)
-    {
-        repo.AddOrder(dto.CustomerID, dto.Products);
+        await repo.RemoveOrder(id);
+        return Results.Ok("Order removed");
     }
 }

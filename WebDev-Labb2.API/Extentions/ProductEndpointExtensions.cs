@@ -44,20 +44,13 @@ public static class ProductEndpointExtensions
     }
 
     // "/products"	POST	Product	  NONE	 200, 400
-    private static async Task<IResult> AddProduct(ProductRepository repo, Product newProduct)
+    private static void AddProduct(ProductRepository repo, Product newProduct)
     {
-        var excistingProduct = await repo.GetProductById(newProduct.ProductID);
-        if (excistingProduct is not null)
-        {
-            return Results.BadRequest($"Product with id {newProduct.ProductID} already excists");
-        }
-
-        await repo.AddProduct(newProduct);
-        return Results.Ok("Product created");
+        repo.AddProduct(newProduct);
     }
 
     // "/products/{id}"	PATCH	int ID,  float Price	NONE	200, 400, 404
-    private static async Task<IResult> UpdateProduct(ProductRepository repo, int id, float newPrice)
+    private static async Task<IResult> UpdateProduct(ProductRepository repo, int id)
     {
         var excistingProduct = await repo.GetProductById(id);
         if (excistingProduct is null)
@@ -66,7 +59,6 @@ public static class ProductEndpointExtensions
         }
 
         await repo.UpdateProductStatus(id);
-        await repo.UpdateProductPrice(id, newPrice);
         return Results.Ok("Product has been updated");
     }
 

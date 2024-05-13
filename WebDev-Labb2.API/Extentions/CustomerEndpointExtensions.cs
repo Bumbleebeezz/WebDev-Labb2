@@ -26,9 +26,14 @@ public static class CustomerEndpointExtensions
     }
 
     // "/customers"	GET	 NONE	Customer[]	200, 404
-    private static async Task<DbSet<Customer>> GetAllCustomers(CustomerRepository repo)
+    private static async Task<IResult> GetAllCustomers(CustomerRepository repo)
     {
-        return await repo.GetAllCustomers();
+        var allCustomers = await repo.GetAllCustomers();
+        if (allCustomers == null)
+        {
+            return Results.BadRequest("No customers found");
+        }
+        return Results.Ok(allCustomers);
     }
 
     // "/customers/{email}"	GET	 string Email	Customer	200, 404
@@ -45,16 +50,9 @@ public static class CustomerEndpointExtensions
     }
 
     // "/customers"	POST	Customer	NONE	200, 400
-    private static async Task<IResult> AddCustomer(CustomerRepository repo, Customer newCustomer)
+    private static void AddCustomer(CustomerRepository repo, Customer newCustomer)
     {
-        var excistingCustomer = await repo.GetCustomerById(newCustomer.CustomerID);
-        if (excistingCustomer is not null)
-        {
-            return Results.BadRequest($"Customer with id {newCustomer.CustomerID} already excists");
-        }
-
-        await repo.AddCustomer(newCustomer);
-        return Results.Ok("Customer created");
+        repo.AddCustomer(newCustomer);
     }
 
     // "/customers/{id}"	PATCH	int ID, ???	NONE	200, 400, 404
@@ -75,9 +73,15 @@ public static class CustomerEndpointExtensions
     }
 
     // "/customers/{id}"	DELETE	 int ID	 NONE	200, 404
-    private static async Task RemoveCustomer(CustomerRepository repo, int id)
+    private static async Task<IResult> RemoveCustomer(CustomerRepository repo, int id)
     {
+        var excistingCustomer = await repo.GetCustomerById(id);
+        if (excistingCustomer is null)
+        {
+            return Results.BadRequest($"Customer with id {id} does not excists");
+        }
         await repo.RemoveCustomer(id);
+        return Results.Ok("Customer has been deleted");
     }
 }
 
