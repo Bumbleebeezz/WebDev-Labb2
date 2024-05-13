@@ -13,7 +13,7 @@ public static class ProductEndpointExtensions
 
         // "/products"	GET	NONE	Product[]	200, 404
         group.MapGet("/", GetAllProducts);
-        // "/products/{id}"	GET	int ID	Product	200, 404
+        // "/products/{ean}"	GET	int ID	Product	200, 404
         group.MapGet("/{ean}", GetProductByEAN);
         // "/products"	POST	Product	  NONE	 200, 400
         group.MapPost("/", AddProduct);

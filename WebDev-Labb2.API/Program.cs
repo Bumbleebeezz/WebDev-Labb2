@@ -13,6 +13,11 @@ builder.Services.AddDbContext<HandmadeDbContext>(
         options.UseSqlServer(connectionString)
 );
 
+builder.Services.AddHttpClient("RestApi", client =>
+{
+    client.BaseAddress = new Uri(System.Environment.GetEnvironmentVariable("apiUrl") ?? "http://localhost:5018");
+});
+
 builder.Services.AddScoped<CustomerRepository>();
 builder.Services.AddScoped<OrderRepository>();
 builder.Services.AddScoped<ProductRepository>();
