@@ -1,7 +1,62 @@
 ﻿@page "/"
+@using WebDev_Labb2.DataAccess
+@using System.Reflection.Metadata
 
-<PageTitle>Home</PageTitle>
+<PageTitle>Products</PageTitle>
 
-<h1>Hello, world!</h1>
+<header class="header">
+    <h1>Products</h1>
+</header>
 
-Welcome to your new app.
+
+<table class="table">
+    <thead>
+        <tr class="productTitles">
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col">EAN</th>
+        <th scope="col">Price</th>
+        <th scope="col">Category</th>
+        <th scope="col">Description</th>
+        <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody class="productList">
+    <tr>
+        <th scope="row"></th>
+        <td>Knitted shirt</td>
+        <td>6259835214765</td>
+        <td>25.55$</td>
+        <td>Knitted</td>
+        <td>100 % wool, size 5-8</td>
+        <td class="discontinuedItem">Discontinued</td>
+    </tr>
+    </tbody>
+</table>
+
+<style>
+    .header{
+        margin : 20px;
+    }
+    .productTitles {
+        background-color: lightgrey;
+        font-family : 'Yu Gothic';
+        font-size : 20px;
+    }
+    .productList{
+        font-family: 'Yu Gothic';
+        font-size : 18px;
+    }
+    .discontinuedItem {
+        color : red;
+        font-weight : bolder;
+    }
+</style>
+
+@code
+{
+    protected override void OnInitialized()
+    {
+        var dbContext = new HandmadeDbContext();
+    }
+}

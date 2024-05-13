@@ -12,7 +12,7 @@ using WebDev_Labb2.DataAccess;
 namespace WebDev_Labb2.DataAccess.Migrations
 {
     [DbContext(typeof(HandmadeDbContext))]
-    [Migration("20240513144159_init")]
+    [Migration("20240513210056_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -100,6 +100,10 @@ namespace WebDev_Labb2.DataAccess.Migrations
 
                     b.Property<bool>("Discontinued")
                         .HasColumnType("bit");
+
+                    b.Property<string>("EAN")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()

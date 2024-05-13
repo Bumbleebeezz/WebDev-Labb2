@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.NETCore.App" Version="2.2.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WebDev-Labb2.API\WebDev-Labb2.API.csproj" />
+    <ProjectReference Include="..\WebDev-Labb2.DataAccess\WebDev-Labb2.DataAccess.csproj" />
     <ProjectReference Include="..\WebDev-Labb2.Shared\WebDev-Labb2.Shared.csproj" />
   </ItemGroup>
 

@@ -22,6 +22,11 @@ public class ProductServices : IProductService<ProductDTO>
         throw new NotImplementedException();
     }
 
+    public Task<ProductDTO?> GetProductByEAN(int ean)
+    {
+        throw new NotImplementedException();
+    }
+
     public Task AddProduct(ProductDTO newProduct)
     {
         throw new NotImplementedException();
