@@ -5,7 +5,9 @@ namespace WebDev_Labb2.Shared.DTOs;
 public class CustomerDTO
 {
     [Required]
-    public string Name { get; set; }
+    public string Firstname { get; set; }
+    [Required]
+    public string Lastname { get; set; }
     [Required]
     public string Address { get; set; }
     [Required,EmailAddress]

@@ -20,7 +20,6 @@ public class OrderRepository(HandmadeDbContext context)
         }
         newOrder.CustomerID = customerID;
         newOrder.DateOfOrder = DateTime.Now;
-        customer.Orders.Add(newOrder);
         context.Orders.Add(newOrder);
         await context.SaveChangesAsync();
     }
@@ -49,7 +48,7 @@ public class OrderRepository(HandmadeDbContext context)
             Console.WriteLine($"Order with id: {id} was not found");
             return;
         }
-        updateOrder.DateOfDelivery = DateTime.Now;
+        updateOrder.OrderShipped = true;
         await context.SaveChangesAsync();
     }
 

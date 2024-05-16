@@ -66,15 +66,13 @@ namespace WebDev_Labb2.DataAccess.Migrations
                     b.Property<int>("CustomerID")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("DateOfDelivery")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime>("DateOfOrder")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("OrderID");
+                    b.Property<bool>("OrderShipped")
+                        .HasColumnType("bit");
 
-                    b.HasIndex("CustomerID");
+                    b.HasKey("OrderID");
 
                     b.ToTable("Orders");
                 });
@@ -119,25 +117,11 @@ namespace WebDev_Labb2.DataAccess.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("WebDev_Labb2.DataAccess.Entities.Order", b =>
-                {
-                    b.HasOne("WebDev_Labb2.DataAccess.Entities.Customer", null)
-                        .WithMany("Orders")
-                        .HasForeignKey("CustomerID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("WebDev_Labb2.DataAccess.Entities.Product", b =>
                 {
                     b.HasOne("WebDev_Labb2.DataAccess.Entities.Order", null)
                         .WithMany("Products")
                         .HasForeignKey("OrderID");
-                });
-
-            modelBuilder.Entity("WebDev_Labb2.DataAccess.Entities.Customer", b =>
-                {
-                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("WebDev_Labb2.DataAccess.Entities.Order", b =>

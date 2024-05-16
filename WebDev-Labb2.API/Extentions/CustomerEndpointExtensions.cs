@@ -18,7 +18,7 @@ public static class CustomerEndpointExtensions
         // "/customers"	POST	Customer	NONE	200, 400
         group.MapPost("/", AddCustomer);
         // "/customers/{id}"	PATCH	int ID, ???	NONE	200, 400, 404
-        group.MapPatch("/{id}", ReplaceCustomer);
+        group.MapPatch("/{id}", UpdateCustomer);
         // "/customers/{id}"	DELETE	 int ID	 NONE	200, 404
         group.MapDelete("/{id}", RemoveCustomer);
 
@@ -56,7 +56,7 @@ public static class CustomerEndpointExtensions
     }
 
     // "/customers/{id}"	PATCH	int ID, ???	NONE	200, 400, 404
-    private static async Task<IResult> ReplaceCustomer(CustomerRepository repo, int id, string newLastname,
+    private static async Task<IResult> UpdateCustomer(CustomerRepository repo, int id, string newLastname,
         string newAddress, string newEmail, string newPhone)
     {
         var excistingCustomer = await repo.GetCustomerById(id);

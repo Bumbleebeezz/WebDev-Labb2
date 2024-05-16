@@ -18,7 +18,7 @@ public static class OrderEndpointExtensions
         // "/orders"	POST	Order	NONE	200, 400
         group.MapPost("/", AddOrder);
         // "/orders/{id}"	PATCH	int ID	NONE	200, 400, 404
-        group.MapPatch("/{id}", ReplaceOrder);
+        group.MapPatch("/{id}", UpdateOrder);
         // "/orders/{id}"	DELETE	int ID	NONE	200, 404
         group.MapDelete("/{id}", RemoveOrder);
 
@@ -51,7 +51,7 @@ public static class OrderEndpointExtensions
         repo.AddOrder(dto.CustomerID, dto.Products);
     }
 
-    private static async Task<IResult> ReplaceOrder(OrderRepository repo, int id)
+    private static async Task<IResult> UpdateOrder(OrderRepository repo, int id)
     {
         var existingOrder = await repo.GetOrderById(id);
         if (existingOrder is null)

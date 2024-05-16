@@ -9,6 +9,6 @@ public class Order
     [Required]
     public int CustomerID { get; set; }
     public DateTime DateOfOrder { get; set; }
-    public DateTime? DateOfDelivery { get; set; }
-    public virtual ICollection<Product> Products { get; set; } = new List<Product>();
+    public bool OrderShipped { get; set; }
+    public List<Product> Products { get; set; } = new();
 }
