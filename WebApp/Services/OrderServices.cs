@@ -1,4 +1,7 @@
-﻿using WebDev_Labb2.Shared.DTOs;
+﻿using Microsoft.EntityFrameworkCore;
+using WebDev_Labb2.DataAccess.Entities;
+using WebDev_Labb2.DataAccess.Repositorys;
+using WebDev_Labb2.Shared.DTOs;
 using WebDev_Labb2.Shared.Interfaces;
 
 namespace WebApp.Services;
@@ -12,12 +15,12 @@ public class OrderServices : IOrderService<OrderDTO>
         _httpClient = factory.CreateClient("RestApi");
     }
 
-    public Task<IEnumerable<OrderDTO>> GetAllOrders()
+    public Task<DbSet<Order>> GetAllOrders()
     {
         throw new NotImplementedException();
     }
 
-    public async Task<OrderDTO?> GetOrderById(int id)
+    public Task<Order?> GetOrderById(int id)
     {
         throw new NotImplementedException();
     }
@@ -27,7 +30,7 @@ public class OrderServices : IOrderService<OrderDTO>
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<OrderDTO>> GetOrderByName(string name)
+    public Task UpdateOrderStatus(int id)
     {
         throw new NotImplementedException();
     }

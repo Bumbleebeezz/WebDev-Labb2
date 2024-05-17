@@ -12,7 +12,7 @@ using WebDev_Labb2.DataAccess;
 namespace WebDev_Labb2.DataAccess.Migrations
 {
     [DbContext(typeof(HandmadeDbContext))]
-    [Migration("20240516200507_init")]
+    [Migration("20240517073231_init")]
     partial class init
     {
         /// <inheritdoc />

@@ -13,6 +13,7 @@ public class OrderRepository(HandmadeDbContext context)
             Console.WriteLine();
         }
         Order newOrder = new();
+
         foreach (var product in productsID)
         {
             Product prod = await context.Products.FindAsync(product);

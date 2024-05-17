@@ -7,5 +7,5 @@ public class OrderDTO
 {
     [Required]
     public int CustomerID { get; set; }
-    public List<int> Products { get; set; }
+    public List<int> Products { get; set; } = new List<int>();
 }
