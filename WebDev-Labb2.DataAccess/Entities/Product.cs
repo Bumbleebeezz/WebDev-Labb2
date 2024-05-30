@@ -1,10 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace WebDev_Labb2.DataAccess.Entities;
+﻿namespace WebDev_Labb2.DataAccess.Entities;
 
 public class Product
 {
-    [Key]
     public int ProductID { get; set; }
     public string Name { get; set; }
     public string EAN { get; set; }

@@ -1,4 +1,5 @@
-﻿using WebDev_Labb2.Shared.DTOs;
+﻿using Newtonsoft.Json;
+using WebDev_Labb2.Shared.DTOs;
 using WebDev_Labb2.Shared.Interfaces;
 
 namespace WebApp.Services;
@@ -12,24 +13,61 @@ public class ProductServices : IProductService<ProductDTO>
         _httpClient = factory.CreateClient("RestApi");
     }
 
-    public Task<IEnumerable<ProductDTO>> GetAllProducts()
+    public async Task<IEnumerable<ProductDTO>> GetAllProducts()
     {
-        throw new NotImplementedException();
+        var response = await _httpClient.GetAsync("api/products/");
+
+        if (!response.IsSuccessStatusCode)
+        {
+            return Enumerable.Empty<ProductDTO>();
+        }
+
+        var result = await response.Content.ReadFromJsonAsync<List<ProductDTO>>();
+        return result ?? Enumerable.Empty<ProductDTO>();
     }
 
-    public Task<ProductDTO?> GetProductById(int id)
+    public async Task<ProductDTO?> GetProductById(int id)
     {
-        throw new NotImplementedException();
+        var response = await _httpClient.GetAsync($"api/products/{id}");
+        if (response.IsSuccessStatusCode)
+        {
+            var result = await response.Content.ReadAsStringAsync();
+            var product = JsonConvert.DeserializeObject<ProductDTO>(result);
+            return product;
+        }
+        else
+        {
+            return null;
+        }
     }
 
-    public Task<ProductDTO?> GetProductByEAN(int ean)
+    public async Task<ProductDTO?> GetProductByEAN(int ean)
     {
-        throw new NotImplementedException();
+        var response = await _httpClient.GetAsync($"api/Product/{ean}");
+        if (response.IsSuccessStatusCode)
+        {
+            var result = await response.Content.ReadAsStringAsync();
+            var product = JsonConvert.DeserializeObject<ProductDTO>(result);
+            return product;
+        }
+        else
+        {
+            return null;
+        }
     }
 
-    public Task AddProduct(ProductDTO newProduct)
+    public async Task AddProduct(ProductDTO newProduct)
     {
-        throw new NotImplementedException();
+        var response = await _httpClient.PostAsJsonAsync($"api/products/add", newProduct);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            return;
+        }
+        else if (response.IsSuccessStatusCode)
+        {
+            return;
+        }
     }
 
     public Task UpdateProductPrice(int id, float newPrice)

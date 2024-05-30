@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using WebDev_Labb2.DataAccess.Entities;
 
 namespace WebDev_Labb2.DataAccess.Repositorys;

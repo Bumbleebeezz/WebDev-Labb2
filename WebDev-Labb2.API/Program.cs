@@ -1,9 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using WebDev_Labb2.API.Extentions;
 using WebDev_Labb2.DataAccess;
-using WebDev_Labb2.DataAccess.Entities;
 using WebDev_Labb2.DataAccess.Repositorys;
-using WebDev_Labb2.Shared.DTOs;
 
 var builder = WebApplication.CreateBuilder(args);
 

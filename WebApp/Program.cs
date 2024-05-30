@@ -1,7 +1,5 @@
-using Microsoft.EntityFrameworkCore;
 using WebApp.Components;
 using WebApp.Services;
-using WebDev_Labb2.DataAccess;
 using WebDev_Labb2.Shared.DTOs;
 using WebDev_Labb2.Shared.Interfaces;
 

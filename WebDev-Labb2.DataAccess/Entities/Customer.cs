@@ -1,10 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace WebDev_Labb2.DataAccess.Entities;
+﻿namespace WebDev_Labb2.DataAccess.Entities;
 
 public class Customer
 {
-    [Key]
     public int CustomerID { get; set; }
     public string Firstname { get; set; }
     public string Lastname { get; set; }

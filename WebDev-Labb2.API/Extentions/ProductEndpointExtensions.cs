@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using WebDev_Labb2.DataAccess.Entities;
 using WebDev_Labb2.DataAccess.Repositorys;
 
@@ -18,7 +17,7 @@ public static class ProductEndpointExtensions
         // "/products"	POST	Product	  NONE	 200, 400
         group.MapPost("/", AddProduct);
         // "/products/{id}"	PATCH	int ID,  float Price	NONE	200, 400, 404
-        group.MapPatch("/{id}", UpdateProduct);
+        group.MapPatch("/{id}", UpdateProductStatus);
         // "/products/{id}"    DELETE  int ID	NONE	200, 404
         group.MapDelete("/{id}", DeleteProduct);
 
@@ -50,7 +49,7 @@ public static class ProductEndpointExtensions
     }
 
     // "/products/{id}"	PATCH	int ID,  float Price	NONE	200, 400, 404
-    private static async Task<IResult> UpdateProduct(ProductRepository repo, int id)
+    private static async Task<IResult> UpdateProductStatus(ProductRepository repo, int id)
     {
         var excistingProduct = await repo.GetProductById(id);
         if (excistingProduct is null)

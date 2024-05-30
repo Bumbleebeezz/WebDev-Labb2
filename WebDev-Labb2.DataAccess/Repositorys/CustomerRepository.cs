@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using WebDev_Labb2.DataAccess.Entities;
 
 namespace WebDev_Labb2.DataAccess.Repositorys;

@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
 using WebDev_Labb2.DataAccess.Entities;
 
 namespace WebDev_Labb2.DataAccess;

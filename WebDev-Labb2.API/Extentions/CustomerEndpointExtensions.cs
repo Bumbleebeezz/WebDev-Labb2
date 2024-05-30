@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using WebDev_Labb2.DataAccess.Entities;
+﻿using WebDev_Labb2.DataAccess.Entities;
 using WebDev_Labb2.DataAccess.Repositorys;
 
 namespace WebDev_Labb2.API.Extentions;
