@@ -6,5 +6,6 @@ public interface IProductService<T> where T : class
     Task<T?> GetProductById(int id);
     Task AddProduct(T newProduct);
     Task UpdateProductPrice(int id, float newPrice);
+    Task UpdateProductStatus(int id);
     Task DeleteProduct(int id);
 }
