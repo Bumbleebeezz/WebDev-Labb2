@@ -73,10 +73,23 @@ public class ProductServices : IProductService<ProductDTO>
     public Task UpdateProductPrice(int id, float newPrice)
     {
         throw new NotImplementedException();
+
+        //var respons = await _httpClient.GetAsync($"api/products/{id}");
+        //if (!respons.IsSuccessStatusCode)
+        //{
+        //    return;
+        //}
+        //var result = await respons.Content.ReadAsStringAsync();
     }
 
-    public Task DeleteProduct(int id)
+    public async Task DeleteProduct(int id)
     {
-        throw new NotImplementedException();
+        var respons = await _httpClient.GetAsync($"api/products/{id}");
+        if (!respons.IsSuccessStatusCode)
+        {
+            return;
+        }
+        var result = await respons.Content.ReadAsStringAsync();
+        _httpClient.DeleteAsync(result);
     }
 }

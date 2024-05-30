@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Azure;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
+using Newtonsoft.Json;
 using WebDev_Labb2.DataAccess.Entities;
 using WebDev_Labb2.Shared.DTOs;
 using WebDev_Labb2.Shared.Interfaces;
@@ -14,28 +17,65 @@ public class OrderServices : IOrderService<OrderDTO>
         _httpClient = factory.CreateClient("RestApi");
     }
 
-    public Task<DbSet<Order>> GetAllOrders()
+    public async Task<IEnumerable<OrderDTO>> GetAllOrders()
     {
-        throw new NotImplementedException();
+        var respons = await _httpClient.GetAsync("api/orders/");
+        if (!respons.IsSuccessStatusCode)
+        {
+            return Enumerable.Empty<OrderDTO>();
+        }
+
+        var result = await respons.Content.ReadFromJsonAsync<IEnumerable<OrderDTO>>();
+        return result;
     }
 
-    public Task<Order?> GetOrderById(int id)
+    public async Task<Order?> GetOrderById(int id)
     {
-        throw new NotImplementedException();
+        var respons = await _httpClient.GetAsync($"api/orders/{id}");
+        if (!respons.IsSuccessStatusCode)
+        {
+            return null;
+        }
+
+        var result = await respons.Content.ReadAsStringAsync();
+        var order = JsonConvert.DeserializeObject<Order>(result);
+        return order;
     }
 
-    public Task AddOrder(OrderDTO newOrder)
+    public async Task<OrderDTO> AddOrder(OrderDTO neworder)
     {
-        throw new NotImplementedException();
+        var respons = await _httpClient.PostAsJsonAsync($"api/orders/", neworder);
+        if (!respons.IsSuccessStatusCode)
+        {
+            return null;
+        }
+        else if (respons.IsSuccessStatusCode)
+        {
+            return neworder;
+        }
+        return null;
     }
 
-    public Task UpdateOrderStatus(int id)
+    public async Task UpdateOrderStatus(int id)
     {
         throw new NotImplementedException();
+
+        //var respons = await _httpClient.GetAsync($"api/orders/{id}");
+        //if (!respons.IsSuccessStatusCode)
+        //{
+        //    return;
+        //}
+        //var result = await respons.Content.ReadAsStringAsync();
     }
 
-    public Task RemoveOrder(int id)
+    public async Task RemoveOrder(int id)
     {
-        throw new NotImplementedException();
+        var respons = await _httpClient.GetAsync($"api/orders/{id}");
+        if (!respons.IsSuccessStatusCode)
+        {
+            return;
+        }
+        var result = await respons.Content.ReadAsStringAsync();
+        _httpClient.DeleteAsync(result);
     }
 }

@@ -17,7 +17,7 @@ public class OrderRepository(HandmadeDbContext context)
         foreach (var product in productsID)
         {
             Product prod = await context.Products.FindAsync(product);
-            newOrder.Products.Add(prod);
+            newOrder.Products.Add(prod.ProductID);
         }
         newOrder.CustomerID = customerID;
         newOrder.DateOfOrder = DateTime.Now;
