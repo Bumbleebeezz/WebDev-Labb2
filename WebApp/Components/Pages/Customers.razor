@@ -1,13 +1,46 @@
 ﻿@page "/customers"
 @rendermode InteractiveServer
 @using WebDev_Labb2.DataAccess
+@inject IHttpClientFactory _httpClientFactory
 
 <PageTitle>Customers</PageTitle>
 
 <h1>Customers</h1>
 
+<div class="container text-center m-2">
+    <div class="row row-cols-auto">
+        <InputText class="form-control col" placeholder="Search customer by email" @bind-Value="searchText"></InputText>
+        <button class="btn btn-secondary" type="submit">Search</button>
+    </div>
+</div>
 
+<style>
+    h1 {
+        text-align: center;
+        font-family : Consolas;
+        color : rebeccapurple ;
+    }
+
+    .searchLabel {
+        width: 100px;
+        font-family: 'Yu Gothic';
+        font-size: 20px;
+    }
+
+    .form-control {
+        width: 400px;
+    }
+</style>
 
 @code {
-    
+    public string searchText = String.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var client = _httpClientFactory.CreateClient("RestApi");
+        var response = await client.GetAsync("/customers/start=0&count=0");
+
+
+        await base.OnInitializedAsync();
+    }
 }

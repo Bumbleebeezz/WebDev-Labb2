@@ -1,6 +1,7 @@
 ﻿@page "/"
 @rendermode InteractiveServer
 @using WebDev_Labb2.DataAccess
+@inject IHttpClientFactory _httpClientFactory
 
 <PageTitle>Products</PageTitle>
 
@@ -8,6 +9,12 @@
     <h1>Products</h1>
 </header>
 
+<div class="container text-center m-2"> 
+    <div class="row row-cols-auto">
+        <InputText class="form-control col" placeholder="Search product with EAN" @bind-Value="searchText"></InputText>
+        <button class="btn btn-secondary" type="submit">Search</button>
+    </div>
+</div>
 
 <table class="table">
     <thead>
@@ -26,8 +33,22 @@
 </table>
 
 <style>
+    h1 {
+        text-align : center;
+        font-family: Consolas;
+        color: rebeccapurple;
+    }
     .header{
         margin : 20px;
+    }
+
+    .searchLabel{
+        width: 100px;
+        font-family: 'Yu Gothic';
+        font-size: 20px;
+    }
+    .form-control{
+        width : 400px;
     }
     .productTitles {
         background-color: lightgrey;
@@ -46,5 +67,14 @@
 
 @code
 {
-    
+    public string searchText = String.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var client = _httpClientFactory.CreateClient("RestApi");
+        var response = await client.GetAsync("/products/start=0&count=0");
+
+
+        await base.OnInitializedAsync();
+    }
 }
