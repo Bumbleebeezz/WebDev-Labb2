@@ -1,17 +1,48 @@
 ﻿@page "/customers"
 @rendermode InteractiveServer
 @using WebDev_Labb2.DataAccess
+@using WebDev_Labb2.DataAccess.Entities
+@using WebDev_Labb2.Shared.DTOs
+@using WebDev_Labb2.Shared.Interfaces
 @inject IHttpClientFactory _httpClientFactory
 
 <PageTitle>Customers</PageTitle>
 
 <h1>Customers</h1>
 
+<div class="spacer"></div>
+
+<h3>New product</h3>
+<div class="container text-center m-2">
+    <div class="row row-cols-auto">
+        <InputText class="form-control col" placeholder="Firstname" @bind-Value="newCustomer.Firstname"></InputText>
+        <InputText class="form-control col" placeholder="Lastname" @bind-Value="newCustomer.Lastname"></InputText>
+        <InputText class="form-control col" placeholder="Address" @bind-Value="newCustomer.Address"></InputText>
+        <InputText class="form-control col" placeholder="Email" @bind-Value="newCustomer.Email"></InputText>
+        <InputText class="form-control col" placeholder="Phone" @bind-Value="newCustomer.Phone"></InputText>
+        <button class="btn btn-outline-success" type="submit" onclick="AddNewCustomer">Add</button>
+    </div>
+</div>
+
+<div class="spacer"></div>
+
 <div class="container text-center m-2">
     <div class="row row-cols-auto">
         <InputText class="form-control col" placeholder="Search customer by email" @bind-Value="searchText"></InputText>
-        <button class="btn btn-secondary" type="submit">Search</button>
+        <button class="btn btn-outline-secondary" type="submit">Search</button>
     </div>
+</div>
+
+<div class="spacer"></div>
+
+<div class="col">
+    <Virtualize Items="CustomersList.OrderByDescending(c => c.Lastname).ToList()" Context="Customers">
+        <li class="card bg-gradient border-3">
+            <label class="card-header text-primary text-lg-start">@CustomersList</label>
+            <p class="card-body ">@Customers</p>
+            <label class="card-footer text-primary text-lg-end">@Customers</label>
+        </li>
+    </Virtualize>
 </div>
 
 <style>
@@ -21,6 +52,9 @@
         color : rebeccapurple ;
     }
 
+    .spacer {
+        height: 50px;
+    }
     .searchLabel {
         width: 100px;
         font-family: 'Yu Gothic';
@@ -33,14 +67,21 @@
 </style>
 
 @code {
+
+    public List<CustomerDTO>? CustomersList = new();
+
     public string searchText = String.Empty;
+
+    public CustomerDTO newCustomer = new();
 
     protected override async Task OnInitializedAsync()
     {
         var client = _httpClientFactory.CreateClient("RestApi");
         var response = await client.GetAsync("/customers/start=0&count=0");
 
-
         await base.OnInitializedAsync();
     }
+
+    
+
 }

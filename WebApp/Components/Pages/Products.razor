@@ -9,10 +9,28 @@
     <h1>Products</h1>
 </header>
 
+<div class="spacer"></div>
+
+<h3>New product</h3>
+<div class="container text-center m-2">
+    <div class="row row-cols-auto">
+        <InputText class="form-control col" placeholder="Name" @bind-Value="newProductName"></InputText>
+        <InputText class="form-control col" placeholder="EAN" @bind-Value="newProductEAN"></InputText>
+        <InputText class="form-control col" placeholder="Price" @bind-Value="newProductPrice"></InputText>
+        <InputText class="form-control col" placeholder="Category" @bind-Value="newProductCategory"></InputText>
+        <button class="btn btn-outline-success" type="submit" onclick="AddNewProduct">Add</button>
+        <InputText class="form-control col" placeholder="Description" @bind-Value="newProductDescription"></InputText>
+        <InputText class="form-control col" placeholder="Discontinued" @bind-Value="newProductStatus"></InputText>
+        <button class="btn btn-outline-success" type="submit" onclick="UpdateProduct">Update</button>
+    </div>
+</div>
+
+<div class="spacer"></div>
+
 <div class="container text-center m-2"> 
     <div class="row row-cols-auto">
         <InputText class="form-control col" placeholder="Search product with EAN" @bind-Value="searchText"></InputText>
-        <button class="btn btn-secondary" type="submit">Search</button>
+        <button class="btn btn-outline-secondary" type="submit">Search</button>
     </div>
 </div>
 
@@ -42,13 +60,16 @@
         margin : 20px;
     }
 
+    .spacer{
+        height : 50px;
+    }
     .searchLabel{
         width: 100px;
         font-family: 'Yu Gothic';
         font-size: 20px;
     }
     .form-control{
-        width : 400px;
+        width : 450px;
     }
     .productTitles {
         background-color: lightgrey;
@@ -69,6 +90,14 @@
 {
     public string searchText = String.Empty;
 
+    public string newProductName = String.Empty;
+    public string newProductEAN = String.Empty;
+    public string newProductPrice = String.Empty;
+    public string newProductCategory = String.Empty;
+    public string newProductDescription = String.Empty;
+    public string newProductStatus = String.Empty;
+
+
     protected override async Task OnInitializedAsync()
     {
         var client = _httpClientFactory.CreateClient("RestApi");
@@ -76,5 +105,17 @@
 
 
         await base.OnInitializedAsync();
+    }
+
+    private void AddNewProduct()
+    {
+        
+
+        ClearAllFields();
+    }
+
+    private void ClearAllFields()
+    {
+        
     }
 }
