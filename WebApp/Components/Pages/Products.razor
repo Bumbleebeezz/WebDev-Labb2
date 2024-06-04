@@ -1,5 +1,6 @@
 ﻿@page "/"
 @rendermode InteractiveServer
+@using System.Reflection.Metadata
 @using WebDev_Labb2.DataAccess
 @inject IHttpClientFactory _httpClientFactory
 
@@ -100,6 +101,14 @@
 
     protected override async Task OnInitializedAsync()
     {
+        var db = new HandmadeDbContext();
+        
+        foreach (var product in db.Products)
+        {
+            <script>
+                document.getElementById()
+            </script>
+        }
         var client = _httpClientFactory.CreateClient("RestApi");
         var response = await client.GetAsync("/products/start=0&count=0");
 
