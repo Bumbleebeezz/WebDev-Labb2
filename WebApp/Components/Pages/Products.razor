@@ -2,7 +2,11 @@
 @rendermode InteractiveServer
 @using System.Reflection.Metadata
 @using WebDev_Labb2.DataAccess
+@using WebDev_Labb2.DataAccess.Entities
+@using WebDev_Labb2.Shared.DTOs
+@using WebDev_Labb2.Shared.Interfaces
 @inject IHttpClientFactory _httpClientFactory
+@inject IProductService<ProductDTO> ProductService
 
 <PageTitle>Products</PageTitle>
 
@@ -35,7 +39,7 @@
     </div>
 </div>
 
-<table class="table">
+<table id="productTable" class="table">
     <thead>
         <tr class="productTitles">
         <th scope="col"></th>
@@ -48,8 +52,29 @@
         </tr>
     </thead>
     <tbody class="productList">
+        <div class="dbProducts">
+            @foreach (var products in DbProducts)
+            {
+
+                //products.Name;
+                
+                <div class="prod">
+                    <th scope="col"></th>
+                    <th scope="col">@products.Name</th>
+                    <th scope="col">@products.EAN</th>
+                    <th scope="col">@products.Price</th>
+                    <th scope="col">@products.Category</th>
+                    <th scope="col">@products.Description</th>
+                    <th scope="col"></th>
+                </div>
+            }
+         </div>
+    
     </tbody>
 </table>
+
+
+
 
 <style>
     h1 {
@@ -87,6 +112,13 @@
     }
 </style>
 
+<script>
+    
+    const productList = document.getElementById("productTable");
+    
+
+</script>
+
 @code
 {
     public string searchText = String.Empty;
@@ -98,19 +130,18 @@
     public string newProductDescription = String.Empty;
     public string newProductStatus = String.Empty;
 
+    public List<ProductDTO> DbProducts = new();
 
     protected override async Task OnInitializedAsync()
     {
-        var db = new HandmadeDbContext();
-        
-        foreach (var product in db.Products)
-        {
-            <script>
-                document.getElementById()
-            </script>
-        }
-        var client = _httpClientFactory.CreateClient("RestApi");
-        var response = await client.GetAsync("/products/start=0&count=0");
+        //var db = new HandmadeDbContext();
+
+
+        var products = await ProductService.GetAllProducts();
+        DbProducts.AddRange(products);
+
+        // var client = _httpClientFactory.CreateClient("RestApi");
+        // var response = await client.GetAsync("/products/start=0&count=0");
 
 
         await base.OnInitializedAsync();
@@ -125,6 +156,11 @@
 
     private void ClearAllFields()
     {
-        
+        newProductName = String.Empty;
+        newProductEAN = String.Empty;
+        newProductPrice = String.Empty;
+        newProductCategory = String.Empty;
+        newProductDescription = String.Empty;
+        newProductStatus = String.Empty;
     }
 }

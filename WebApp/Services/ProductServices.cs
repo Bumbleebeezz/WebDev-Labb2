@@ -22,7 +22,7 @@ public class ProductServices : IProductService<ProductDTO>
             return Enumerable.Empty<ProductDTO>();
         }
 
-        var result = await response.Content.ReadFromJsonAsync<List<ProductDTO>>();
+        var result = await response.Content.ReadFromJsonAsync<IEnumerable<ProductDTO>>();
         return result ?? Enumerable.Empty<ProductDTO>();
     }
 

@@ -7,8 +7,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\WebDev-Labb2.DataAccess\WebDev-Labb2.DataAccess.csproj" />
-  </ItemGroup>
-
 </Project>

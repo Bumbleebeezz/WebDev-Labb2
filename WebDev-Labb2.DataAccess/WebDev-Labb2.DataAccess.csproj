@@ -15,4 +15,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\WebDev-Labb2.Shared\WebDev-Labb2.Shared.csproj" />
+  </ItemGroup>
+
 </Project>

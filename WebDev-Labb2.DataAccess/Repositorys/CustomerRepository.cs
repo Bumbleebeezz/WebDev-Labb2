@@ -1,19 +1,35 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebDev_Labb2.DataAccess.Entities;
+using WebDev_Labb2.Shared.Interfaces;
 
 namespace WebDev_Labb2.DataAccess.Repositorys;
 
-public class CustomerRepository(HandmadeDbContext context)
+public class CustomerRepository(HandmadeDbContext context) : ICustomerService<Customer>
 {
+    public Task<Customer?> GetCustomerByEmail(string email)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task AddCustomer(Customer newCustomer)
     {
         await context.Customers.AddAsync(newCustomer);
         await context.SaveChangesAsync();
     }
 
+    public Task DeleteCustomer(int id)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<DbSet<Customer>> GetAllCustomers()
     {
         return context.Customers;
+    }
+
+    Task<IEnumerable<Customer>> ICustomerService<Customer>.GetAllCustomers()
+    {
+        throw new NotImplementedException();
     }
 
     public async Task<Customer?> GetCustomerById(int id)

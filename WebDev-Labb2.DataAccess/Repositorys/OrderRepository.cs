@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebDev_Labb2.DataAccess.Entities;
+using WebDev_Labb2.Shared.DTOs;
+using WebDev_Labb2.Shared.Interfaces;
 
 namespace WebDev_Labb2.DataAccess.Repositorys;
 
-public class OrderRepository(HandmadeDbContext context)
+public class OrderRepository(HandmadeDbContext context) : IOrderService<Order>
 {
     public async Task AddOrder(int customerID, List<int> productsID)
     {
@@ -30,6 +32,11 @@ public class OrderRepository(HandmadeDbContext context)
         return context.Orders;
     }
 
+    Task<IEnumerable<Order>> IOrderService<Order>.GetAllOrders()
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<Order?> GetOrderById(int id)
     {
         var orderById = await context.Orders.FindAsync(id);
@@ -39,6 +46,11 @@ public class OrderRepository(HandmadeDbContext context)
             return null;
         }
         return orderById;
+    }
+
+    public Task<OrderDTO> AddOrder(Order newOrder)
+    {
+        throw new NotImplementedException();
     }
 
     public async Task UpdateOrderStatus(int id)

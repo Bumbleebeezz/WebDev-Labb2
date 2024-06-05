@@ -1,7 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using WebDev_Labb2.API.Extentions;
 using WebDev_Labb2.DataAccess;
+using WebDev_Labb2.DataAccess.Entities;
 using WebDev_Labb2.DataAccess.Repositorys;
+using WebDev_Labb2.Shared.Interfaces;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,9 +19,10 @@ builder.Services.AddHttpClient("RestApi", client =>
     client.BaseAddress = new Uri(System.Environment.GetEnvironmentVariable("apiUrl") ?? "http://localhost:5018");
 });
 
-builder.Services.AddScoped<CustomerRepository>();
-builder.Services.AddScoped<OrderRepository>();
-builder.Services.AddScoped<ProductRepository>();
+
+builder.Services.AddScoped<ICustomerService<Customer>, CustomerRepository>();
+builder.Services.AddScoped<IOrderService<Order>, OrderRepository>();
+builder.Services.AddScoped<IProductService<Product>,ProductRepository>();
 
 var app = builder.Build();
 

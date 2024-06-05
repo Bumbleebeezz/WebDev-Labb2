@@ -1,14 +1,21 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebDev_Labb2.DataAccess.Entities;
+using WebDev_Labb2.Shared.Interfaces;
+
 
 namespace WebDev_Labb2.DataAccess.Repositorys;
 
-public class ProductRepository(HandmadeDbContext context)
+public class ProductRepository(HandmadeDbContext context) : IProductService<Product>
 {
     public async Task AddProduct(Product newProduct)
     {
         await context.Products.AddAsync(newProduct);
         await context.SaveChangesAsync();
+    }
+
+    public Task UpdateProductPrice(int id, float newPrice)
+    {
+        throw new NotImplementedException();
     }
 
     public async Task<DbSet<Product>> GetAllProducts()
@@ -19,6 +26,11 @@ public class ProductRepository(HandmadeDbContext context)
     public async Task<Product?> GetProductByEAN(int ean)
     {
         return await context.Products.FindAsync(ean);
+    }
+
+    Task<IEnumerable<Product>> IProductService<Product>.GetAllProducts()
+    {
+        throw new NotImplementedException();
     }
 
     public async Task<Product?> GetProductById(int id)
@@ -33,8 +45,15 @@ public class ProductRepository(HandmadeDbContext context)
         {
             return;
         }
+        
         updateProduct.Discontinued = true;
+        
         await context.SaveChangesAsync();
+    }
+
+    public Task DeleteProduct(int id)
+    {
+        throw new NotImplementedException();
     }
 
     public async Task RemoveProduct(int id)

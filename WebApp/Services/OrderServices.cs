@@ -29,7 +29,7 @@ public class OrderServices : IOrderService<OrderDTO>
         return result;
     }
 
-    public async Task<Order?> GetOrderById(int id)
+    public async Task<OrderDTO?> GetOrderById(int id)
     {
         var respons = await _httpClient.GetAsync($"api/orders/{id}");
         if (!respons.IsSuccessStatusCode)
@@ -38,7 +38,7 @@ public class OrderServices : IOrderService<OrderDTO>
         }
 
         var result = await respons.Content.ReadAsStringAsync();
-        var order = JsonConvert.DeserializeObject<Order>(result);
+        var order = JsonConvert.DeserializeObject<OrderDTO>(result);
         return order;
     }
 
