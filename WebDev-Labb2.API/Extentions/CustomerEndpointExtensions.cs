@@ -5,7 +5,7 @@ namespace WebDev_Labb2.API.Extentions;
 
 public static class CustomerEndpointExtensions
 {
-    public static WebApplication MapCustomerEndpoints(this WebApplication app)
+    public static IEndpointRouteBuilder MapCustomerEndpoints(this IEndpointRouteBuilder app)
     {
         var group = app.MapGroup("api/customers");
 

@@ -5,7 +5,7 @@ namespace WebDev_Labb2.API.Extentions;
 
 public static class OrderEndpointExtensions
 {
-    public static WebApplication MapOrderEndpoints(this WebApplication app)
+    public static IEndpointRouteBuilder MapOrderEndpoints(this IEndpointRouteBuilder app)
     {
         var group = app.MapGroup("api/orders");
 

@@ -23,7 +23,7 @@
         <InputText class="form-control col" placeholder="EAN" @bind-Value="newProductEAN"></InputText>
         <InputText class="form-control col" placeholder="Price" @bind-Value="newProductPrice"></InputText>
         <InputText class="form-control col" placeholder="Category" @bind-Value="newProductCategory"></InputText>
-        <button class="btn btn-outline-success" type="submit" onclick="AddNewProduct">Add</button>
+        <button class="btn btn-outline-success" type="submit" onclick="AddNewProduct()">Add</button>
         <InputText class="form-control col" placeholder="Description" @bind-Value="newProductDescription"></InputText>
         <InputText class="form-control col" placeholder="Discontinued" @bind-Value="newProductStatus"></InputText>
         <button class="btn btn-outline-success" type="submit" onclick="UpdateProduct">Update</button>
@@ -35,45 +35,41 @@
 <div class="container text-center m-2"> 
     <div class="row row-cols-auto">
         <InputText class="form-control col" placeholder="Search product with EAN" @bind-Value="searchText"></InputText>
-        <button class="btn btn-outline-secondary" type="submit">Search</button>
+        <button class="btn btn-outline-secondary" type="submit" onclick="searchProducts()">Search</button>
     </div>
 </div>
 
-<table id="productTable" class="table">
-    <thead>
-        <tr class="productTitles">
-        <th scope="col"></th>
-        <th scope="col">Name</th>
-        <th scope="col">EAN</th>
-        <th scope="col">Price</th>
-        <th scope="col">Category</th>
-        <th scope="col">Description</th>
-        <th scope="col"></th>
-        </tr>
-    </thead>
-    <tbody class="productList">
-        <div class="dbProducts">
-            @foreach (var products in DbProducts)
-            {
 
-                //products.Name;
-                
-                <div class="prod">
-                    <th scope="col"></th>
-                    <th scope="col">@products.Name</th>
-                    <th scope="col">@products.EAN</th>
-                    <th scope="col">@products.Price</th>
-                    <th scope="col">@products.Category</th>
-                    <th scope="col">@products.Description</th>
-                    <th scope="col"></th>
-                </div>
-            }
-         </div>
-    
-    </tbody>
-</table>
+<div class="dbProducts">
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">TestCard</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">xxxxxxxxxxxxx</h6>
+            <h6 class="card-subtitle mb-2 text-body-secondary">test</h6>
+            <p class="card-text">0</p>
+            <p class="card-text">test card</p>
+        </div>
+    </div>
+    @foreach (var products in DbProducts)
+    {
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">@products.Name</h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary">@products.EAN</h6>
+                <h6 class="card-subtitle mb-2 text-body-secondary">@products.Category</h6>
+                <p class="card-text">@products.Price</p>
+                <p class="card-text">@products.Description</p>
+            </div>
+        </div>
+    }
+</div>
 
 
+<script>
+    function searchProducts() {
+        SearchProducts();
+    }
+</script>
 
 
 <style>
@@ -112,12 +108,6 @@
     }
 </style>
 
-<script>
-    
-    const productList = document.getElementById("productTable");
-    
-
-</script>
 
 @code
 {
@@ -134,9 +124,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-        //var db = new HandmadeDbContext();
-
-
         var products = await ProductService.GetAllProducts();
         DbProducts.AddRange(products);
 
@@ -149,8 +136,6 @@
 
     private void AddNewProduct()
     {
-        
-
         ClearAllFields();
     }
 
@@ -162,5 +147,15 @@
         newProductCategory = String.Empty;
         newProductDescription = String.Empty;
         newProductStatus = String.Empty;
+    }
+
+    private async void SearchProducts()
+    {
+        var productFound = await ProductService.GetAllProducts();
+        if (productFound is null)
+        {
+            return;
+        }
+
     }
 }

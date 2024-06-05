@@ -13,11 +13,6 @@ public class ProductRepository(HandmadeDbContext context) : IProductService<Prod
         await context.SaveChangesAsync();
     }
 
-    public Task UpdateProductPrice(int id, float newPrice)
-    {
-        throw new NotImplementedException();
-    }
-
     public async Task<DbSet<Product>> GetAllProducts()
     {
         return context.Products;
@@ -51,9 +46,10 @@ public class ProductRepository(HandmadeDbContext context) : IProductService<Prod
         await context.SaveChangesAsync();
     }
 
-    public Task DeleteProduct(int id)
+    public async Task DeleteProduct(int id)
     {
-        throw new NotImplementedException();
+        await RemoveProduct(id);
+        return;
     }
 
     public async Task RemoveProduct(int id)
